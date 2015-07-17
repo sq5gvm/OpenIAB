@@ -25,8 +25,8 @@ android {
     defaultConfig {
         minSdkVersion project.minSdkVersion
         targetSdkVersion project.targetSdkVersion
-        versionCode 11
-        versionName '0.9.8.7'
+        versionCode 13
+        versionName '0.9.8.7-cb-am'
     }
 
     lintOptions {
