@@ -73,7 +73,7 @@ public class AmazonAppstoreBillingService implements AppstoreInAppBillingService
     public static final String JSON_KEY_PURCHASE_STATUS = "purchaseStatus";
     public static final String JSON_KEY_USER_ID = "userId";
     public static final String JSON_KEY_RECEIPT_PURCHASE_TOKEN = "purchaseToken";
-    public static final String JSON_KEY_MARKET_LOCALE = "price_currency_code";
+    public static final String JSON_KEY_MARKET_LOCALE = "marketCountryCode";
 
     private final Map<RequestId, IabHelper.OnIabPurchaseFinishedListener> requestListeners =
             new HashMap<RequestId, IabHelper.OnIabPurchaseFinishedListener>();
@@ -408,7 +408,7 @@ public class AmazonAppstoreBillingService implements AppstoreInAppBillingService
      * "productId"         : "receipt.getSku"
      * "purchaseStatus"    : "purchaseRequestStatus.name"
      * "userId"            : "purchaseResponse.getUserId()" // if non-null
-     * "price_currency_code" : "purchaseResponse.getMarketplace()" // if non-null
+     * "marketCountryCode" : "purchaseResponse.getMarketplace()" // if non-null
      * "itemType"          : "receipt.getItemType().name()" // if non-null
      * "purchaseToken"     : "receipt.getReceiptId()"
      * } </pre>

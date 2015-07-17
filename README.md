@@ -31,11 +31,11 @@ So the _Purchase_ object received in _IabHelper.OnIabPurchaseFinishedListener_ s
     "productId"         : "receipt.getSku"
     "purchaseStatus"    : "purchaseRequestStatus.name"
     "userId"            : "purchaseResponse.getUserId()" // if non-null
-    "price_currency_code" : "purchaseResponse.getMarketplace()" // if non-null <--- new field
+    "marketCountryCode" : "purchaseResponse.getMarketplace()" // if non-null <--- new field
     "itemType"          : "receipt.getItemType().name()" // if non-null
     "purchaseToken"     : "receipt.getReceiptId()"
     }
-Where _price_currency_code_ is the value for [userData](https://developer.amazon.com/public/apis/earn/in-app-purchasing/javadocs-v2/in-app-purchasing-2.0-api-reference).getMarketplace() from Amazon. Please note we have used the same key as GooglePlay store does so it is easier to understand the concept (even though it breaks the code style followed).
+Where _marketCountryCode_ is the value for [userData](https://developer.amazon.com/public/apis/earn/in-app-purchasing/javadocs-v2/in-app-purchasing-2.0-api-reference).getMarketplace() from Amazon. 
 
 ## Rules for contributing
 Please provide your contributions to the original OpenIAB repository.
