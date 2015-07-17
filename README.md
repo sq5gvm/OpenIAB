@@ -1,6 +1,6 @@
-**Please consider trying out [OPFIab](https://github.com/onepf/OPFIab) as it's intended to replace OpenIAB. Library is still in development, but your feedback might be extremely usefull.**  
-
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Open%20In--App%20Billing-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/383)
+This is a cloned repository from [OpenIAB](https://github.com/onepf/OpenIAB). Master branch is just a clone of the current version (as of writing this, 0.9.8.7). Checkout  [developer](https://github.com/lumley/OpenIAB/tree/developer) branch for the following:
+ * a working implementation for [Cafe Bazaar]()
+ * a [way to track the currency of a purchase for Amazon store](#amazon_currency_tracking)
 
 OpenIAB is an open source library which provides an easy way for the developers to develop their apps/games in a way that one APK will work in all the stores and automatically use the right in-app purchase API under each store. OpenIAB also provides an open in-app billing API that stores could implement to support all the built APK files using this library. Currently there are already 5 stores that support the Open API: Yandex.Store, SlideME, Appland, Aptoide and AppMall. The open stores don't need extra libraries to be included with your project, only the OpenIAB core is required to support all of them. 
 
@@ -16,28 +16,29 @@ OpenIAB supports the following stores:
   * Samsung Apps
   * Nokia Store
   * Amazon AppStore
+  * Cafe Bazaar
 
 For detailed instructions, please visit [our wiki](https://github.com/onepf/OpenIAB/wiki). 
 Contact akarimova@onepf.org if you have any business comments or questions about the library.
 
-##Rules for bug reports
+## <a name="amazon_currency_tracking">How to track the currency from a purchase from Amazon</a>
+In order to avoid changing too much the behavior of OpenIAB's store, we have added the market's locale following the country ISO Code ISO_3166-1 (two capital letters that specify only country but not region) to the original JSON receipt built by OpenIAB.
 
-1. Do not write directly to the team members.
-2. Check [FAQ](https://github.com/onepf/OpenIAB/wiki/FAQ) for your question/issue.
-3. Choose a correct queue of issues 
- * https://github.com/onepf/OpenIAB-Unity-Plugin/issues for Unity devs
- * https://github.com/onepf/OpenIAB/issues for Android Java devs
- * https://github.com/onepf/OpenIAB-Cordova-Plugin/issues for Cordova devs
- * https://github.com/onepf/OpenIAB-Marmalade-Plugi/issues for Marmalade devs
-4. Give details. As many as possible but DO NOT SHARE YOUR PUBLIC KEY for in-app verification.  
-The following details could be really helpful:
+So the _Purchase_ object received in _IabHelper.OnIabPurchaseFinishedListener_ should have the following original JSON:
 
-* OS. Could be Android, iOS, WP 
-* Package. Could be native OpenIAB jar, Unity plugin, Cordove plugin or Marmalade plugin.
-* Version of the library, e.g. 0.9.8.6
-* Affected stores
-* Logs
-* Screenshots
+    {
+    "orderId"           : "purchaseResponse.getRequestId"
+    "productId"         : "receipt.getSku"
+    "purchaseStatus"    : "purchaseRequestStatus.name"
+    "userId"            : "purchaseResponse.getUserId()" // if non-null
+    "price_currency_code" : "purchaseResponse.getMarketplace()" // if non-null <--- new field
+    "itemType"          : "receipt.getItemType().name()" // if non-null
+    "purchaseToken"     : "receipt.getReceiptId()"
+    }
+Where _price_currency_code_ is the value for [userData](https://developer.amazon.com/public/apis/earn/in-app-purchasing/javadocs-v2/in-app-purchasing-2.0-api-reference).getMarketplace() from Amazon. Please note we have used the same key as GooglePlay store does so it is easier to understand the concept (even though it breaks the code style followed).
+
+## Rules for contributing
+Please provide your contributions to the original OpenIAB repository.
 
 ## License
 
@@ -55,5 +56,3 @@ The following details could be really helpful:
     See the License for the specific language governing permissions and
     limitations under the License.
  
-
-
